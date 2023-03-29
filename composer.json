@@ -1,0 +1,29 @@
+{
+    "name": "cierra/laravel-sendgrid-newsletter",
+    "description": "Newsletter Package with sendgrid templating.",
+    "autoload": {
+        "psr-4": {
+            "Cierra\\LaravelSendgridNewsletter\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jan Riefling"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^10.4",
+        "symfony/mailer": "^6.2",
+        "swiftmade/laravel-sendgrid-notification-channel": "^2.5"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Cierra\\LaravelSendgridNewsletter\\LaravelSendgridNewsletterProvider"
+            ],
+            "aliases": {
+                "SendgridNewsletter": "Cierra\\LaravelSendgridNewsletter\\Facades\\SendgridNewsletterFacade"
+            }
+        }
+    }
+}
