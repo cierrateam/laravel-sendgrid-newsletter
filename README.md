@@ -11,6 +11,7 @@ Based on three templates which must be created in Sendgrid
 2. 'subscribed' - Template: Will be send if the user is successfully subscribed.
 3. 'unsubscribed' - Template: Will be send if the user unsubscribes (needs Button with 'action_url')
 <br>
+
 ## Installation: To install this package, you need to use Composer. Run the following command in your terminal:<br> `composer require cierrateam/laravel-sendgrid-newsletter`
 
 ## Configuration:
@@ -18,6 +19,7 @@ Based on three templates which must be created in Sendgrid
 After installing the package, add the service provider to the providers array in the config/app.php file:
 <br>
 `'providers' => [ // Other service providers Cierra\LaravelSendgridNewsletter\LaravelSendgridNewsletterServiceProvider::class, ]`
+
 
 ### Then publish the package configuration file using the following command:
 <br>
