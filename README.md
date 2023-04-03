@@ -35,8 +35,10 @@ After installing the package, add the service provider to the providers array in
 
 ### Then publish the package configuration file using the following command:
 <br>
+
 ```
 php artisan vendor:publish --provider="CierraTeam\\LaravelSendgridNewsletter\\LaravelSendgridNewsletterProvider"
+
 ```
 
 ### Migration command:
