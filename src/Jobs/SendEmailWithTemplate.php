@@ -42,8 +42,9 @@ class SendEmailWithTemplate implements ShouldQueue
     {
         
         $dynamicData = $this->options['dynamic_data'];
+        $dynamicData['action_url'] = '/';
         if(array_key_exists('default_action_url', $this->options)) {
-            $dynamicData['action_url'] = env('APP_URL') . str_replace('{token}', $this->subscription->token, $dynamicData['action_url']);
+            $dynamicData['action_url'] = env('APP_URL') . str_replace('{token}', $this->subscription->token, $this->options['default_action_url']);
         }
 
         self::sendSendGridEmail(

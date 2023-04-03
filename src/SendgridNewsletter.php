@@ -29,11 +29,10 @@ class SendgridNewsletter
                 'email' => $email,
                 'token' => Str::random(60),
                 'status' => SubscriptionStatus::Pending,
-                'redirect_url' => $options['redirect'] ?: '/',
             ]);
 
             SendEmailWithTemplate::dispatch($subscription, $options);
-            return self::returnValues(200, 'Confirmation email send.', $subscription, null);
+            return self::returnValues(200, 'Confirmation email send.', $subscription, null, $options['redirect_url']);
         }
     }
 
@@ -45,13 +44,12 @@ class SendgridNewsletter
         if($validator->fails()) {
             return self::returnValues(401, 'Subscription failed', $subscription, $validator->errors());
         } else {
+            $options = empty($options) ? self::subscribedOptions() : $options;
             $subscription->update([
                 'status' => SubscriptionStatus::Subscribed,
                 'unsubscribed_at' => null,
                 'subscribed_at' => Carbon::now()->format('Y-m-d'),
             ]);
-
-            $options = empty($options) ? self::subscribedOptions() : $options;
     
             SendEmailWithTemplate::dispatch($subscription, $options);
             return self::returnValues(200, 'Subscription added', $subscription, null);
@@ -65,17 +63,15 @@ class SendgridNewsletter
         if($validator->fails()) {
             return self::returnValues(401, 'Unsubscribing failed', $subscription, $validator->errors());
         } else {
+            $options = empty($options) ? self::unsubscribeOptions() : $options;
             $subscription->update([
                 'status' => SubscriptionStatus::Unsubscribed,
                 'unsubscribed_at' => Carbon::now()->format('Y-m-d'),
                 'subscribed_at' => null,
-                'redirect_url' => $options['redirect'] ?: '/',
             ]);
-
-            $options = empty($options) ? self::unsubscribeOptions() : $options;
     
             SendEmailWithTemplate::dispatch($subscription, $options);
-            return self::returnValues(200, 'Unsubscribed', $subscription, null);
+            return self::returnValues(200, 'Unsubscribed', $subscription, null, $options['redirect_url']);
         }
     }
 
