@@ -22,16 +22,16 @@
     },
     "autoload": {
         "psr-4": {
-            "CierraTeam\\LaravelSendgridNewsletter\\": "src/"
+            "Cierrateam\\LaravelSendgridNewsletter\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "CierraTeam\\LaravelSendgridNewsletter\\LaravelSendgridNewsletterProvider"
+                "Cierrateam\\LaravelSendgridNewsletter\\LaravelSendgridNewsletterProvider"
             ],
             "aliases": {
-                "SendgridNewsletter": "CierraTeam\\LaravelSendgridNewsletter\\Facades\\SendgridNewsletterFacade"
+                "SendgridNewsletter": "Cierrateam\\LaravelSendgridNewsletter\\Facades\\SendgridNewsletterFacade"
             }
         }
     }
