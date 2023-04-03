@@ -1,8 +1,6 @@
-
-# Laravel package Sendgrid newsletter subscription
-
 <img src="https://cierra.de/img/logo/cierra-dark.png" alt="cierra Logo" width="40%"></img>
 
+# Laravel package Sendgrid newsletter subscription
 <br>
 
 ## Overview:
