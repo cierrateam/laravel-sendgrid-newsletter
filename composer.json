@@ -1,6 +1,6 @@
 {
     "name": "cierrateam/laravel-sendgrid-newsletter",
-    "description": "Newsletter Package with sendgrid templating.",
+    "description": "Newsletter Package with sendgrid templating. Based on three ",
     "license": "MIT",
     "keywords": [
         "laravel",
