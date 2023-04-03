@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Cierra\LaravelSendgridNewsletter\Http\Controller\NewsletterSubscriptionController;
+use Cierrateam\LaravelSendgridNewsletter\Http\Controller\NewsletterSubscriptionController;
 
 /*
 |--------------------------------------------------------------------------

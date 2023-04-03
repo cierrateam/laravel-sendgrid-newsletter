@@ -1,6 +1,6 @@
 <?php
 
-namespace Cierra\LaravelSendgridNewsletter\Jobs;
+namespace Cierrateam\LaravelSendgridNewsletter\Jobs;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -11,9 +11,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
-use Cierra\LaravelSendgridNewsletter\Models\NewsletterSubscription;
+use Cierrateam\LaravelSendgridNewsletter\Models\NewsletterSubscription;
 use Illuminate\Support\Facades\Config;
-use Cierra\LaravelSendgridNewsletter\Traits\SendGridEmail;
+use Cierrateam\LaravelSendgridNewsletter\Traits\SendGridEmail;
 
 class SendEmailWithTemplate implements ShouldQueue
 {

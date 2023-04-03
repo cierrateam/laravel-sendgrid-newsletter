@@ -8,18 +8,18 @@ return [
         'subject' => 'Email confirmation',
         'template_id' => env('SENDGRID_TEMPLATE_EMAIL_CONFIRM'),
         'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/confirmation',
-        'redirect' => '/',
+        'redirect_url' => '/',
     ],
     'subscribed' => [
         'subject' => 'Subscribed',
         'template_id' => env('SENDGRID_TEMPLATE_NEWSLETTER_SUBSCRIBED'),
-        'redirect' => '/',
+        'redirect_url' => '/',
     ],
     'unsubscribed' => [
         'subject' => 'Unsubscribed',
         'template_id' => env('SENDGRID_TEMPLATE_NEWSLETTER_UNSUBSCRIBED'),
         'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/unsubscribed',
-        'redirect' => '/'
+        'redirect_url' => '/'
     ],
     'excluded-emails' => [
         'admin@cierra.de'

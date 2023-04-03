@@ -1,8 +1,8 @@
 <?php
 
-namespace Cierra\LaravelSendgridNewsletter\Enums;
+namespace Cierrateam\LaravelSendgridNewsletter\Enums;
 
-use Cierra\LaravelSendgridNewsletter\Traits\EnumToArray;
+use Cierrateam\LaravelSendgridNewsletter\Traits\EnumToArray;
 
 enum SubscriptionStatus: string
 {

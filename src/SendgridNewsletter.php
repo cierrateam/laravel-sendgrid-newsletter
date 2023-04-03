@@ -1,16 +1,16 @@
 <?php
 
-namespace Cierra\LaravelSendgridNewsletter;
+namespace Cierrateam\LaravelSendgridNewsletter;
 
-use Cierra\LaravelSendgridNewsletter\Jobs\SendEmailWithTemplate;
-use Cierra\LaravelSendgridNewsletter\Models\NewsletterSubscription;
-use Cierra\LaravelSendgridNewsletter\Traits\NewsletterValidations;
-use Cierra\LaravelSendgridNewsletter\Traits\SendgridEmail;
+use Cierrateam\LaravelSendgridNewsletter\Jobs\SendEmailWithTemplate;
+use Cierrateam\LaravelSendgridNewsletter\Models\NewsletterSubscription;
+use Cierrateam\LaravelSendgridNewsletter\Traits\NewsletterValidations;
+use Cierrateam\LaravelSendgridNewsletter\Traits\SendgridEmail;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
-use Cierra\LaravelSendgridNewsletter\Enums\SubscriptionStatus;
-use Cierra\LaravelSendgridNewsletter\Traits\DefaultOptions;
-use Cierra\LaravelSendgridNewsletter\Traits\ReturnValues;
+use Cierrateam\LaravelSendgridNewsletter\Enums\SubscriptionStatus;
+use Cierrateam\LaravelSendgridNewsletter\Traits\DefaultOptions;
+use Cierrateam\LaravelSendgridNewsletter\Traits\ReturnValues;
 
 class SendgridNewsletter
 {
@@ -23,7 +23,7 @@ class SendgridNewsletter
             return self::returnValues(401, 'Confirmation email failes', null, $validator->errors());
         }
         if($validator->passes()) {
-            $options = empty($options) ? self::confirmEmailOptions() : $options;
+            $options = self::confirmEmailOptions($options);
             $subscription = NewsletterSubscription::create([
                 'email' => $email,
                 'token' => Str::random(60),
@@ -44,7 +44,7 @@ class SendgridNewsletter
         if($validator->fails()) {
             return self::returnValues(401, 'Subscription failed', $subscription, $validator->errors());
         } else {
-            $options = empty($options) ? self::subscribedOptions() : $options;
+            $options = self::subscribedOptions($options);
             $subscription->update([
                 'status' => SubscriptionStatus::Subscribed,
                 'unsubscribed_at' => null,
@@ -63,7 +63,7 @@ class SendgridNewsletter
         if($validator->fails()) {
             return self::returnValues(401, 'Unsubscribing failed', $subscription, $validator->errors());
         } else {
-            $options = empty($options) ? self::unsubscribeOptions() : $options;
+            $options = self::unsubscribeOptions($options);
             $subscription->update([
                 'status' => SubscriptionStatus::Unsubscribed,
                 'unsubscribed_at' => Carbon::now()->format('Y-m-d'),

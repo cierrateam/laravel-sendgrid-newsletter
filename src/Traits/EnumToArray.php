@@ -1,6 +1,6 @@
 <?php
 
-namespace Cierra\LaravelSendgridNewsletter\Traits;
+namespace Cierrateam\LaravelSendgridNewsletter\Traits;
 trait EnumToArray
 {
 

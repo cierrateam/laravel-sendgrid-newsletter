@@ -1,6 +1,6 @@
 <?php
 
-namespace Cierra\LaravelSendgridNewsletter\Traits;
+namespace Cierrateam\LaravelSendgridNewsletter\Traits;
 
 use Illuminate\Support\Facades\Validator;
 

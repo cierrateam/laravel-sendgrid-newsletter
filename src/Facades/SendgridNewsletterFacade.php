@@ -1,6 +1,6 @@
 <?php
 
-namespace Cierra\LaravelSendgridNewsletter\Facades;
+namespace Cierrateam\LaravelSendgridNewsletter\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

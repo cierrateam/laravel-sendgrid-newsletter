@@ -1,7 +1,7 @@
 <?php
-namespace Cierra\LaravelSendgridNewsletter\Models;
+namespace Cierrateam\LaravelSendgridNewsletter\Models;
 
-use Cierra\LaravelSendgridNewsletter\Enums\SubscriptionStatus;
+use Cierrateam\LaravelSendgridNewsletter\Enums\SubscriptionStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Cierra\LaravelSendgridNewsletter;
+namespace Cierrateam\LaravelSendgridNewsletter;
 
 use Illuminate\Support\ServiceProvider;
-use Cierra\LaravelSendgridNewsletter\SendgridNewsletter;
+use Cierrateam\LaravelSendgridNewsletter\SendgridNewsletter;
 
 class LaravelSendgridNewsletterProvider extends ServiceProvider
 {

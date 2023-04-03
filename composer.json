@@ -16,7 +16,6 @@
         }
     ],
     "require": {
-        "cierrateam/laravel-sendgrid-newsletter": "1.0.0",
         "illuminate/support": "^10.4",
         "swiftmade/laravel-sendgrid-notification-channel": "^2.5"
     },

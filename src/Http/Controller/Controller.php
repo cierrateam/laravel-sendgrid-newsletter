@@ -1,8 +1,8 @@
 <?php
 
-namespace Cierra\LaravelSendgridNewsletter\Http\Controller;
+namespace Cierrateam\LaravelSendgridNewsletter\Http\Controller;
 
-use Cierra\LaravelSendgridNewsletter\Traits\NewsletterValidations;
+use Cierrateam\LaravelSendgridNewsletter\Traits\NewsletterValidations;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;

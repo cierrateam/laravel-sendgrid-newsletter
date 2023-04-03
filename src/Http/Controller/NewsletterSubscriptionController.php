@@ -1,8 +1,8 @@
 <?php
 
-namespace Cierra\LaravelSendgridNewsletter\Http\Controller;
+namespace Cierrateam\LaravelSendgridNewsletter\Http\Controller;
 
-use Cierra\LaravelSendgridNewsletter\SendgridNewsletter;
+use Cierrateam\LaravelSendgridNewsletter\SendgridNewsletter;
 use Illuminate\Support\Facades\Response;
 
 class NewsletterSubscriptionController extends Controller
