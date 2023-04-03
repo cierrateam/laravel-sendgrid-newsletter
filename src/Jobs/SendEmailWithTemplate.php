@@ -19,8 +19,7 @@ class SendEmailWithTemplate implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, SendGridEmail;
 
-    private $config;
-    private $template;
+    private $options;
     private NewsletterSubscription $subscription;
     
     /**
@@ -28,11 +27,10 @@ class SendEmailWithTemplate implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(NewsletterSubscription $subscription, string $config)
+    public function __construct(NewsletterSubscription $subscription, array $options)
     {
         $this->subscription = $subscription;
-        $this->config = config('sendgrid-newsletter.' . $config);
-        $this->template = $config;
+        $this->options = $options;
     }
 
     /**
@@ -43,15 +41,15 @@ class SendEmailWithTemplate implements ShouldQueue
     public function handle()
     {
         
-        $dynamicData = $this->config['dynamic_data'];
-
-        if($this->config['default_action_url']) {
-          $dynamicData['action_url'] = env('APP_URL') . '/sendgrid-newsletter' . '/' . $this->subscription->token . '/' . $this->template;
+        $dynamicData = $this->options['dynamic_data'];
+        if(array_key_exists('default_action_url', $this->options)) {
+            $dynamicData['action_url'] = env('APP_URL') . str_replace('{token}', $this->subscription->token, $dynamicData['action_url']);
         }
+
         self::sendSendGridEmail(
             $this->subscription->email,
-            $this->config['template_id'],
-            $this->config['subject'],
+            $this->options['template_id'],
+            $this->options['subject'],
             $dynamicData
         );
     }
