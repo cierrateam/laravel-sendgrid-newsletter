@@ -47,8 +47,8 @@ Add your template_ids from Sendgrid to template_id in config.
 ## Usage: 
 To use the cierra/laravel-sendgrid-newsletter package, you can use the provided methods in your code:
 
-Start the newsletter subscription, creates NewsletterSubscription recod, dispatches the job to send the email with the confirmation template.<br>
-`SendgridNewsletter::sendSubscriptionLink($email, $options)`
+### `SendgridNewsletter::sendSubscriptionLink($email, $options)`
+Start the newsletter subscription, creates NewsletterSubscription record, dispatches the job to send the email with the confirmation template.<br>
 #### Options:
 
 ```
@@ -60,9 +60,9 @@ Start the newsletter subscription, creates NewsletterSubscription recod, dispatc
         'redirect_url' => config('sendgrid-newsletter.confirmation.redirect'),
     ];
 ```
+### `SendgridNewsletter::subscribe($token, $options)`
+Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink.<br>
 
-Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink<br>
-`SendgridNewsletter::subscribe($token, $options)`
 #### Options:
 
 ```
@@ -74,8 +74,9 @@ Updates the NewsletterSubscription based on the token. Created in sendSubscripti
         ];
 ```
 
-Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink<br>
-`SendgridNewsletter::unsubscribe($token, $options)`
+### `SendgridNewsletter::unsubscribe($token, $options)`
+Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink.<br>
+
 #### Options:
 
 ```
@@ -87,12 +88,12 @@ Updates the NewsletterSubscription based on the token. Created in sendSubscripti
             'redirect_url' => config('sendgrid-newsletter.unsubscribed.redirect'),
         ];
 ```
+### `SendgridNewsletter::getSubscriptionStatus($token)`
+Receives the status from the NewsLetterSubscription.<br>
 
-Receives the status from the NewsLetterSubscription<br>
-`SendgridNewsletter::getSubscriptionStatus($token)`
+### `SendgridNewsletter::updateUserId($token, $user_id)`
+Adds a user_id to the database entry based on the token.<br>
 
-Receives the status from the NewsLetterSubscription<br>
-`SendgridNewsletter::updateUserId($token, $user_id)`
 
 ### Routes:<br>
 <code>/sendgrid-newsletter/{token}/confirmation</code> - will be triggered by the 'action_url' from the 'confirm' template in Sendgrid if default_action_url is true
