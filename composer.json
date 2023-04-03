@@ -2,16 +2,13 @@
     "name": "cierrateam/laravel-sendgrid-newsletter",
     "description": "Newsletter Package with sendgrid templating. Based on three ",
     "license": "MIT",
+    "type": "laravel-package",
     "keywords": [
         "laravel",
         "sendgrid",
         "newsletter"
       ],
-    "autoload": {
-        "psr-4": {
-            "CierraTeam\\LaravelSendgridNewsletter\\": "src/"
-        }
-    },
+    "homepage": "https://github.com/cierrateam/laravel-sendgrid-newsletter",
     "authors": [
         {
             "name": "Jan Riefling",
@@ -19,9 +16,14 @@
         }
     ],
     "require": {
+        "cierrateam/laravel-sendgrid-newsletter": "1.0.0",
         "illuminate/support": "^10.4",
-        "symfony/mailer": "^6.2",
         "swiftmade/laravel-sendgrid-notification-channel": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "CierraTeam\\LaravelSendgridNewsletter\\": "src/"
+        }
     },
     "extra": {
         "laravel": {

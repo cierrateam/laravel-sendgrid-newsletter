@@ -42,13 +42,13 @@ Add your template_ids from Sendgrid to template_id in config.
 To use the cierra/laravel-sendgrid-newsletter package, you can use the provided methods in your code:
 
 Start the newsletter subscription, creates NewsletterSubscription recod, dispatches the job to send the email with the confirmation template.<br>
-`SendgridNewsletter::sendSubscriptionLink($email)`
+`SendgridNewsletter::sendSubscriptionLink($email, $options)`
 
 Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink<br>
-`SendgridNewsletter::subscribe($token)`
+`SendgridNewsletter::subscribe($token, $options)`
 
 Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink<br>
-`SendgridNewsletter::unsubscribe($token)`
+`SendgridNewsletter::unsubscribe($token, $options)`
 
 Receives the status from the NewsLetterSubscription<br>
 `SendgridNewsletter::getSubscriptionStatus($token)`
