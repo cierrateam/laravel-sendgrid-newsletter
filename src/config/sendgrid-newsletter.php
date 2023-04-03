@@ -7,7 +7,7 @@ return [
     'confirmation' => [
         'subject' => 'Email confirmation',
         'template_id' => env('SENDGRID_TEMPLATE_EMAIL_CONFIRM'),
-        'default_action_url' => '/sendgrid-newsletter/{token}/confirmation',
+        'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/confirmation',
         'redirect' => '/',
     ],
     'subscribed' => [
@@ -18,7 +18,7 @@ return [
     'unsubscribed' => [
         'subject' => 'Unsubscribed',
         'template_id' => env('SENDGRID_TEMPLATE_NEWSLETTER_UNSUBSCRIBED'),
-        'default_action_url' => '/sendgrid-newsletter/{token}/unsubscribed',
+        'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/unsubscribed',
         'redirect' => '/'
     ],
     'excluded-emails' => [
