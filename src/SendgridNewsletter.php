@@ -24,13 +24,13 @@ class SendgridNewsletter
             return self::returnValues(401, 'Confirmation email failes', null, $validator->errors());
         }
         if($validator->passes()) {
+            $options = empty($options) ? self::confirmEmailOptions() : $options;
             $subscription = NewsletterSubscription::create([
                 'email' => $email,
                 'token' => Str::random(60),
-                'status' => SubscriptionStatus::Pending
+                'status' => SubscriptionStatus::Pending,
+                'redirect_url' => $options['redirect'] ?: '/',
             ]);
-
-            $options = empty($options) ? self::confirmEmailOptions() : $options;
 
             SendEmailWithTemplate::dispatch($subscription, $options);
             return self::returnValues(200, 'Confirmation email send.', $subscription, null);
@@ -69,6 +69,7 @@ class SendgridNewsletter
                 'status' => SubscriptionStatus::Unsubscribed,
                 'unsubscribed_at' => Carbon::now()->format('Y-m-d'),
                 'subscribed_at' => null,
+                'redirect_url' => $options['redirect'] ?: '/',
             ]);
 
             $options = empty($options) ? self::unsubscribeOptions() : $options;
