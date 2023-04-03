@@ -1,11 +1,14 @@
 <img src="https://cierra.de/img/logo/cierra-dark.png" alt="cierra Logo" width="40%"></img>
 
-# Laravel package Sendgrid newsletter subscription
+# Laravel Sendgrid Newsletter Subscription
 
 ## Overview:
 <br>
 The cierrateam/laravel-sendgrid-newsletter package is a Laravel package that provides a way to handle newsletter subscriptions using Sendgrid email service.
 
+## Requires: 
+
+This packages requires [swiftmade/laravel-sendgrid-notification-channel](https://github.com/swiftmade/laravel-sendgrid-notification-channel) please see the the docs for settings.
 ## Prerequisite:
 <br>
 Based on three templates which must be created in Sendgrid
@@ -14,10 +17,6 @@ Based on three templates which must be created in Sendgrid
 2. 'subscribed' - Template: Will be send if the user is successfully subscribed.
 3. 'unsubscribed' - Template: Will be send if the user unsubscribes (needs Button with 'action_url')
 <br>
-
-## Requires: 
-
-This packages requires [swiftmade/laravel-sendgrid-notification-channel](https://github.com/swiftmade/laravel-sendgrid-notification-channel) please see the the docs for settings.
 
 ## Installation:
 <br>
