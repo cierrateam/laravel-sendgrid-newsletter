@@ -1,5 +1,8 @@
-![Cierra Logo](https://cierra.de/img/logo/cierra-dark.png)
+
 # Laravel package Sendgrid newsletter subscription
+
+by: <img src="https://cierra.de/img/logo/cierra-dark.png" alt="cierra Logo" width="60%"></img>
+
 <br>
 
 ## Overview:
@@ -24,7 +27,7 @@ To install this package, you need to use Composer. Run the following command in 
 <br>
 After installing the package, add the service provider to the providers array in the config/app.php file:
 <br>
-`'providers' => [ // Other service providers Cierra\LaravelSendgridNewsletter\LaravelSendgridNewsletterServiceProvider::class, ]`
+<code>'providers' => [ // Other service providers Cierra\LaravelSendgridNewsletter\LaravelSendgridNewsletterServiceProvider::class, ]</code>
 
 
 ### Then publish the package configuration file using the following command:
