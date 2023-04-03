@@ -1,7 +1,6 @@
 <img src="https://cierra.de/img/logo/cierra-dark.png" alt="cierra Logo" width="40%"></img>
 
 # Laravel package Sendgrid newsletter subscription
-<br>
 
 ## Overview:
 <br>
@@ -30,11 +29,11 @@ After installing the package, add the service provider to the providers array in
 
 ### Then publish the package configuration file using the following command:
 <br>
-`php artisan vendor:publish --provider="CierraTeam\\LaravelSendgridNewsletter\\LaravelSendgridNewsletterProvider"`
+<code>php artisan vendor:publish --provider="CierraTeam\\LaravelSendgridNewsletter\\LaravelSendgridNewsletterProvider"</code>
 
 ### Migration command:
 <br>
-`php artisan migrate`
+<code>php artisan migrate</code>
 
 ### Config:<br>
 Add your sendgrid api-key.<br>
@@ -56,9 +55,9 @@ Receives the status from the NewsLetterSubscription<br>
 `SendgridNewsletter::getSubscriptionStatus($token)`
 
 ### Routes:<br>
-/sendgrid-newsletter/{token}/confirmation - will be triggered by the 'action_url' from the 'confirm' template in Sendgrid if default_action_url is true
+<code>/sendgrid-newsletter/{token}/confirmation</code> - will be triggered by the 'action_url' from the 'confirm' template in Sendgrid if default_action_url is true
 
-/sendgrid-newsletter/{token}/unsubscribed - will be triggered by the 'action_url' from the 'unsubscribed' Sendgrid template if default_action_url is true
+<code>/sendgrid-newsletter/{token}/unsubscribed</code> - will be triggered by the 'action_url' from the 'unsubscribed' Sendgrid template if default_action_url is true
 
 Changelog: 1.0.0:
 
