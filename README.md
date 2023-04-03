@@ -1,8 +1,8 @@
-# Composer Documentation for cierra/laravel-sendgrid-newsletter
+# Composer Package for Sendgrid newsletter subscription
 
 ## Overview:
 <br>
-The cierra/laravel-sendgrid-newsletter package is a Laravel package that provides a way to handle newsletter subscriptions using Sendgrid email service.
+The cierrateam/laravel-sendgrid-newsletter package is a Laravel package that provides a way to handle newsletter subscriptions using Sendgrid email service.
 
 ## Prerequisite:
 <br>
@@ -11,7 +11,7 @@ Based on three templates which must be created in Sendgrid
 2. 'subscribed' - Template: Will be send if the user is successfully subscribed.
 3. 'unsubscribed' - Template: Will be send if the user unsubscribes (needs Button with 'action_url')
 <br>
-Installation: To install this package, you need to use Composer. Run the following command in your terminal:<br> `composer require cierra/laravel-sendgrid-newsletter`
+## Installation: To install this package, you need to use Composer. Run the following command in your terminal:<br> `composer require cierrateam/laravel-sendgrid-newsletter`
 
 ## Configuration:
 <br>
@@ -21,7 +21,7 @@ After installing the package, add the service provider to the providers array in
 
 ### Then publish the package configuration file using the following command:
 <br>
-`php artisan vendor:publish --provider="Cierra\Cierra\\LaravelSendgridNewsletter\\LaravelSendgridNewsletterProvider"`
+`php artisan vendor:publish --provider="CierraTeam\\LaravelSendgridNewsletter\\LaravelSendgridNewsletterProvider"`
 
 ### Migration command:
 <br>

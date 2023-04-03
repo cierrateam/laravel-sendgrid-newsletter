@@ -1,14 +1,21 @@
 {
-    "name": "cierra/laravel-sendgrid-newsletter",
+    "name": "cierrateam/laravel-sendgrid-newsletter",
     "description": "Newsletter Package with sendgrid templating.",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "sendgrid",
+        "newsletter"
+      ],
     "autoload": {
         "psr-4": {
-            "Cierra\\LaravelSendgridNewsletter\\": "src/"
+            "CierraTeam\\LaravelSendgridNewsletter\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Jan Riefling"
+            "name": "Jan Riefling",
+            "email": "jan@cierra.de"
         }
     ],
     "require": {
@@ -19,10 +26,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Cierra\\LaravelSendgridNewsletter\\LaravelSendgridNewsletterProvider"
+                "CierraTeam\\LaravelSendgridNewsletter\\LaravelSendgridNewsletterProvider"
             ],
             "aliases": {
-                "SendgridNewsletter": "Cierra\\LaravelSendgridNewsletter\\Facades\\SendgridNewsletterFacade"
+                "SendgridNewsletter": "CierraTeam\\LaravelSendgridNewsletter\\Facades\\SendgridNewsletterFacade"
             }
         }
     }
