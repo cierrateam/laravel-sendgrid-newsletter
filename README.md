@@ -1,4 +1,4 @@
-![Cierra Logo](https://d33wubrfki0l68.cloudfront.net/18387fac446b…5d8b367e6e317/fbae1/assets/logos/cierra-light.svg)
+![Cierra Logo](https://cierra.de/img/logo/cierra-dark.png)
 # Laravel package Sendgrid newsletter subscription
 <br>
 
