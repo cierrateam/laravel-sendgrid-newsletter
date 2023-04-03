@@ -47,7 +47,17 @@ Add your template_ids from Sendgrid to template_id in config.
 ## Usage: 
 To use the cierra/laravel-sendgrid-newsletter package, you can use the provided methods in your code:
 
-### `SendgridNewsletter::sendSubscriptionLink($email, $options)`
+### Options:
+
+As long as no options are set the default options will be taken from the config. ```template_id``` and ```subject```  are required. `dynamic_data` is optional. If the ``default_action_url`` is removed or false from config you need to provide an ``action_url`` like:<br> 
+``` 
+'dynamic_data' => [
+    'action_url' => '/route/to/custom',
+]
+
+```
+
+### `SendgridNewsletter::sendSubscriptionLink($email, $options = null)`
 Start the newsletter subscription, creates NewsletterSubscription record, dispatches the job to send the email with the confirmation template.<br>
 #### Options:
 
@@ -60,7 +70,7 @@ Start the newsletter subscription, creates NewsletterSubscription record, dispat
         'redirect_url' => config('sendgrid-newsletter.confirmation.redirect'),
     ];
 ```
-### `SendgridNewsletter::subscribe($token, $options)`
+### `SendgridNewsletter::subscribe($token, $options = null)`
 Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink.<br>
 
 #### Options:
@@ -74,7 +84,7 @@ Updates the NewsletterSubscription based on the token. Created in sendSubscripti
         ];
 ```
 
-### `SendgridNewsletter::unsubscribe($token, $options)`
+### `SendgridNewsletter::unsubscribe($token, $options = null)`
 Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink.<br>
 
 #### Options:

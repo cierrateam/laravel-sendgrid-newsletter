@@ -43,7 +43,7 @@ class SendEmailWithTemplate implements ShouldQueue
         
         $dynamicData = $this->options['dynamic_data'];
         $dynamicData['action_url'] = '/';
-        if(array_key_exists('default_action_url', $this->options)) {
+        if(array_key_exists('default_action_url', $this->options) && $this->options['default_action_url']) {
             $dynamicData['action_url'] = str_replace('{token}', $this->subscription->token, $this->options['default_action_url']);
         }
 
