@@ -49,17 +49,22 @@ To use the cierra/laravel-sendgrid-newsletter package, you can use the provided 
 
 ### Options:
 
-As long as no options are set the default options will be taken from the config. ```template_id``` and ```subject```  are required. `dynamic_data` is optional. If the ``default_action_url`` is removed or false from config you need to provide an ``action_url`` like:<br> 
-``` 
-'dynamic_data' => [
-    'action_url' => '/route/to/custom',
-]
+As long as no options are set the default options will be taken from the config. ```template_id``` and ```subject```  are required. `dynamic_data` is optional. If the ``default_action_url`` is removed or false from config you need to provide an ``action_url`` e.g:<br> 
+```
+$myOptions = [
+    'dynamic_data' => [
+        'action_url' => '/route/to/custom',
+    ]
+    'default_action_url' => false
+];
+
+SendgridNewsletter::sendSubscriptionLink('test@cierra.de', $myOptions);
 
 ```
 
-### `SendgridNewsletter::sendSubscriptionLink($email, $options = null)`
+### `SendgridNewsletter::sendSubscriptionLink(string $email, array $options = null)`
 Start the newsletter subscription, creates NewsletterSubscription record, dispatches the job to send the email with the confirmation template.<br>
-#### Options:
+#### Default options:
 
 ```
     return [
@@ -70,10 +75,10 @@ Start the newsletter subscription, creates NewsletterSubscription record, dispat
         'redirect_url' => config('sendgrid-newsletter.confirmation.redirect'),
     ];
 ```
-### `SendgridNewsletter::subscribe($token, $options = null)`
+### `SendgridNewsletter::subscribe(string $token, array $options = null)`
 Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink.<br>
 
-#### Options:
+#### Default options:
 
 ```
     return [
@@ -84,10 +89,10 @@ Updates the NewsletterSubscription based on the token. Created in sendSubscripti
         ];
 ```
 
-### `SendgridNewsletter::unsubscribe($token, $options = null)`
+### `SendgridNewsletter::unsubscribe(string $token, array $options = null)`
 Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink.<br>
 
-#### Options:
+#### Default ptions:
 
 ```
     return [
@@ -101,7 +106,7 @@ Updates the NewsletterSubscription based on the token. Created in sendSubscripti
 ### `SendgridNewsletter::getSubscriptionStatus($token)`
 Receives the status from the NewsLetterSubscription.<br>
 
-### `SendgridNewsletter::updateUserId($token, $user_id)`
+### `SendgridNewsletter::updateSubscription(string $token, id $user_id)`
 Adds a user_id to the database entry based on the token.<br>
 
 

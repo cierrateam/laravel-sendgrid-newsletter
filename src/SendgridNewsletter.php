@@ -16,7 +16,7 @@ class SendgridNewsletter
 {
     use NewsletterValidations, SendGridEmail, ReturnValues, DefaultOptions;
 
-    public static function sendSubscriptionLink($email, $user_id = null, $options = null)
+    public static function sendSubscriptionLink(string $email, $user_id = null, array $options = null)
     {
         $validator =  self::validateConfirmEmail($email);
         if($validator->fails()) {
@@ -36,7 +36,7 @@ class SendgridNewsletter
         }
     }
 
-    public static function subscribe($token, $options = null)
+    public static function subscribe(string $token, array $options = null)
     {
         $validator =  self::validateToken($token);
 
@@ -56,7 +56,7 @@ class SendgridNewsletter
         }
     }
 
-    public static function unsubscribe($token, $options = null)
+    public static function unsubscribe(string $token, array $options = null)
     {
         $validator =  self::validateToken($token);
         $subscription = NewsletterSubscription::where('token', $token)->first();
@@ -78,7 +78,7 @@ class SendgridNewsletter
     /*
     / @params identifier 
     */
-    public static function getSubscriptionStatus($token) 
+    public static function getSubscriptionStatus(string $token) 
     {
         $validator =  self::validateToken($token);
 
@@ -93,7 +93,7 @@ class SendgridNewsletter
     /*
     / @params identifier 
     */
-    public static function addUserId($token, $user_id) 
+    public static function updateSubscription(string $token, array $data) 
     {
         $validator =  self::validateToken($token);
 
@@ -101,9 +101,8 @@ class SendgridNewsletter
         if($validator->fails()) {
             return self::returnValues(401, 'Update user_id failed.', $subscription, $validator->errors());
         } else {
-            $subscription->update([
-                'user_id' => $user_id
-            ]);
+            $subscription->update($data);
+            self::returnValues(200, 'Update userid', $subscription, null);
         }
     }
 }
