@@ -44,15 +44,47 @@ To use the cierra/laravel-sendgrid-newsletter package, you can use the provided 
 
 Start the newsletter subscription, creates NewsletterSubscription recod, dispatches the job to send the email with the confirmation template.<br>
 `SendgridNewsletter::sendSubscriptionLink($email, $options)`
+#### Options:
+<code>
+    return [
+        'subject' => config('sendgrid-newsletter.confirmation.subject'),
+        'template_id' => config('sendgrid-newsletter.confirmation.template_id'),
+        'dynamic_data' => [],
+        'default_action_url' => config('sendgrid-newsletter.confirmation.default_action_url'),
+        'redirect_url' => config('sendgrid-newsletter.confirmation.redirect'),
+    ];
+</code>
 
 Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink<br>
 `SendgridNewsletter::subscribe($token, $options)`
+#### Options:
+<code>
+    return [
+            'subject' => config('sendgrid-newsletter.subscribed.subject'),
+            'template_id' => config('sendgrid-newsletter.subscribed.template_id'),
+            'dynamic_data' => [],
+            'redirect_url' => config('sendgrid-newsletter.subscribed.redirect'),
+        ];
+</code>
 
 Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink<br>
 `SendgridNewsletter::unsubscribe($token, $options)`
+#### Options:
+<code>
+    return [
+            'subject' => config('sendgrid-newsletter.unsubscribed.subject'),
+            'template_id' => config('sendgrid-newsletter.unsubscribed.template_id'),
+            'dynamic_data' => [],
+            'default_action_url' => config('sendgrid-newsletter.unsubscribed.default_action_url'),
+            'redirect_url' => config('sendgrid-newsletter.unsubscribed.redirect'),
+        ];
+</code>
 
 Receives the status from the NewsLetterSubscription<br>
 `SendgridNewsletter::getSubscriptionStatus($token)`
+
+Receives the status from the NewsLetterSubscription<br>
+`SendgridNewsletter::updateUserId($token, $user_id)`
 
 ### Routes:<br>
 <code>/sendgrid-newsletter/{token}/confirmation</code> - will be triggered by the 'action_url' from the 'confirm' template in Sendgrid if default_action_url is true

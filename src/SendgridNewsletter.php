@@ -86,7 +86,24 @@ class SendgridNewsletter
         if($validator->fails()) {
             return self::returnValues(401, 'Couldnt get status', $subscription, $validator->errors());
         } else {
-            return $subscription ? self::returnValues(200, 'Get status', $subscription, null) : self::returnValues(400, SubscriptionStatus::Not_Subscribed_Yet, null, null);;
+            return $subscription ? self::returnValues(200, 'Get status', $subscription, null) : self::returnValues(400, SubscriptionStatus::Not_Subscribed_Yet, null, null);
+        }
+    }
+
+    /*
+    / @params identifier 
+    */
+    public static function addUserId($token, $user_id) 
+    {
+        $validator =  self::validateToken($token);
+
+        $subscription = NewsletterSubscription::where('token', $token)->first();
+        if($validator->fails()) {
+            return self::returnValues(401, 'Update user_id failed.', $subscription, $validator->errors());
+        } else {
+            $subscription->update([
+                'user_id' => $user_id
+            ]);
         }
     }
 }

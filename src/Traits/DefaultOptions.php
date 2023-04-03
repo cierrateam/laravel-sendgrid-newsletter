@@ -22,6 +22,7 @@ trait DefaultOptions
             'subject' => config('sendgrid-newsletter.subscribed.subject'),
             'template_id' => config('sendgrid-newsletter.subscribed.template_id'),
             'dynamic_data' => [],
+            'redirect_url' => config('sendgrid-newsletter.subscribed.redirect'),
         ];
     }
 

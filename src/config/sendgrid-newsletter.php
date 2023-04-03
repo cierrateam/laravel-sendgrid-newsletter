@@ -13,6 +13,7 @@ return [
     'subscribed' => [
         'subject' => 'Subscribed',
         'template_id' => env('SENDGRID_TEMPLATE_NEWSLETTER_SUBSCRIBED'),
+        'redirect' => '/',
     ],
     'unsubscribed' => [
         'subject' => 'Unsubscribed',
