@@ -2,17 +2,12 @@
 
 namespace Cierrateam\LaravelSendgridNewsletter\Jobs;
 
-use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\URL;
-use Carbon\Carbon;
 use Cierrateam\LaravelSendgridNewsletter\Models\NewsletterSubscription;
-use Illuminate\Support\Facades\Config;
 use Cierrateam\LaravelSendgridNewsletter\Traits\SendGridEmail;
 
 class SendEmailWithTemplate implements ShouldQueue

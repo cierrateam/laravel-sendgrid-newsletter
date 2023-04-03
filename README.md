@@ -15,6 +15,10 @@ Based on three templates which must be created in Sendgrid
 3. 'unsubscribed' - Template: Will be send if the user unsubscribes (needs Button with 'action_url')
 <br>
 
+## Requires: 
+
+This packages requires [swiftmade/laravel-sendgrid-notification-channel](https://github.com/swiftmade/laravel-sendgrid-notification-channel) please see the the docs for settings.
+
 ## Installation:
 <br>
 To install this package, you need to use Composer. Run the following command in your terminal:
