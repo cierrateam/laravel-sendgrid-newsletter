@@ -7,7 +7,6 @@ use Cierra\LaravelSendgridNewsletter\Models\NewsletterSubscription;
 use Cierra\LaravelSendgridNewsletter\Traits\NewsletterValidations;
 use Cierra\LaravelSendgridNewsletter\Traits\SendgridEmail;
 use Illuminate\Support\Str;
-use App\Models\User;
 use Carbon\Carbon;
 use Cierra\LaravelSendgridNewsletter\Enums\SubscriptionStatus;
 use Cierra\LaravelSendgridNewsletter\Traits\DefaultOptions;
@@ -17,7 +16,7 @@ class SendgridNewsletter
 {
     use NewsletterValidations, SendGridEmail, ReturnValues, DefaultOptions;
 
-    public static function sendSubscriptionLink($email, $options = null)
+    public static function sendSubscriptionLink($email, $user_id = null, $options = null)
     {
         $validator =  self::validateConfirmEmail($email);
         if($validator->fails()) {
@@ -29,6 +28,7 @@ class SendgridNewsletter
                 'email' => $email,
                 'token' => Str::random(60),
                 'status' => SubscriptionStatus::Pending,
+                'user_id' => $user_id
             ]);
 
             SendEmailWithTemplate::dispatch($subscription, $options);
