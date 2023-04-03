@@ -18,7 +18,8 @@ Based on three templates which must be created in Sendgrid
 ## Installation:
 <br>
 To install this package, you need to use Composer. Run the following command in your terminal:
-`composer require cierrateam/laravel-sendgrid-newsletter`
+
+```composer require cierrateam/laravel-sendgrid-newsletter```
 
 ## Configuration:
 <br>
