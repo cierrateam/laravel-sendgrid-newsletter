@@ -27,10 +27,10 @@ trait DefaultOptions
     protected static function unsubscribeOptions($options = null)
     {
         $options = empty($options) ? [] : $options;
-        $unsubscribed_config = config('sendgrid-newsletter.subscribed');
+        $unsubscribed_config = config('sendgrid-newsletter.unsubscribed');
         $dynamicData = [
             'dynamic_data' => []
         ];
-        return array_merge($unsubscribed_config,$dynamicData, $options);
+        return array_merge($unsubscribed_config, $dynamicData, $options);
     }
 }

@@ -15,5 +15,6 @@ use Cierrateam\LaravelSendgridNewsletter\Http\Controller\NewsletterSubscriptionC
 */
 
 
-Route::get('/sendgrid-newsletter/{token}/confirmation', [NewsletterSubscriptionController::class, 'confirmSubscription']);
-Route::get('/sendgrid-newsletter/{token}/unsubscribed', [NewsletterSubscriptionController::class, 'subscribe']);
+Route::get('/sendgrid-newsletter/{token}/confirmation', [NewsletterSubscriptionController::class, 'confirmedSubscription']);
+Route::get('/sendgrid-newsletter/{token}/unsubscribe', [NewsletterSubscriptionController::class, 'unsubscribe']);
+Route::get('/sendgrid-newsletter/{token}/resubscribe', [NewsletterSubscriptionController::class, 'confirmedSubscription']);

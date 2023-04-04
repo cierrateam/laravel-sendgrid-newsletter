@@ -2,7 +2,9 @@
 
 return [
     'sendgrid' => [
-        'api-key' => env('SENDGRID_API_KEY'),   
+        'api-key' => env('SENDGRID_API_KEY'),
+        'newsletterListIds' => [],
+        'supressionGroupIds' => [],
     ],
     'confirmation' => [
         'subject' => 'Email confirmation',
@@ -18,7 +20,7 @@ return [
     'unsubscribed' => [
         'subject' => 'Unsubscribed',
         'template_id' => env('SENDGRID_TEMPLATE_NEWSLETTER_UNSUBSCRIBED'),
-        'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/unsubscribed',
+        'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/resubscribe',
         'redirect_url' => '/'
     ],
     'excluded-emails' => [

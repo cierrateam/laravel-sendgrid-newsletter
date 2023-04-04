@@ -68,7 +68,7 @@ SendgridNewsletter::sendSubscriptionLink('test@cierra.de', $myOptions);
 
 ```
 
-### `SendgridNewsletter::sendSubscriptionLink(string $email, array $options = null)`
+### `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)`
 Start the newsletter subscription, creates NewsletterSubscription record, dispatches the job to send the email with the confirmation template.<br>
 #### Default options:
 
@@ -114,12 +114,16 @@ Receives the status from the NewsLetterSubscription.<br>
 
 ### `SendgridNewsletter::updateSubscription(string $token, array $data)`
 Updates the Subscription identified by the token.<br>
+### `SendgridNewsletter::updateSendgridContact(string $token, array $contactData)`
+Updates the created Contact in Sendgrid by the token.<br>
 
 
 ### Routes:<br>
-<code>/sendgrid-newsletter/{token}/confirmation</code> - will be triggered by the 'action_url' from the 'confirm' template in Sendgrid if default_action_url is true
+<code>/sendgrid-newsletter/{token}/confirmation</code> - will be triggered by the 'action_url' from the 'confirm' template in Sendgrid if default_action_url is true.
 
-<code>/sendgrid-newsletter/{token}/unsubscribed</code> - will be triggered by the 'action_url' from the 'unsubscribed' Sendgrid template if default_action_url is true
+<code>/sendgrid-newsletter/{token}/unsubscribe</code> - can be called to unsubscribe.
+
+<code>/sendgrid-newsletter/{token}/resubscribe</code> - will be triggered by the 'action_url' from the 'unsubscribed' Sendgrid template if default_action_url is true.
 
 Changelog: 1.0.0:
 

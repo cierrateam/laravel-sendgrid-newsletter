@@ -6,7 +6,7 @@ use Cierrateam\LaravelSendgridNewsletter\SendgridNewsletter;
 class NewsletterSubscriptionController extends Controller
 {
 
-    public function confirmSubscription(string $token)
+    public function confirmedSubscription(string $token)
     {
         $response = SendgridNewsletter::subscribe($token);
         return response()->json($response);
@@ -14,11 +14,6 @@ class NewsletterSubscriptionController extends Controller
     public function unsubscribe(string $token)
     {
         $response = SendgridNewsletter::unsubscribe($token);
-        return response()->json($response);
-    }
-    public function subscribe(string $token)
-    {
-        $response = SendgridNewsletter::subscribe($token);
         return response()->json($response);
     }
 }
