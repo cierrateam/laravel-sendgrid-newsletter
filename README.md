@@ -112,8 +112,8 @@ Updates the NewsletterSubscription based on the token. Created in sendSubscripti
 ### `SendgridNewsletter::getSubscriptionStatus($token)`
 Receives the status from the NewsLetterSubscription.<br>
 
-### `SendgridNewsletter::updateSubscription(string $token, id $user_id)`
-Adds a user_id to the database entry based on the token.<br>
+### `SendgridNewsletter::updateSubscription(string $token, array $data)`
+Updates the Subscription identified by the token.<br>
 
 
 ### Routes:<br>
