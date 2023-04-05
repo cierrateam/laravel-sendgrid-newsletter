@@ -16,6 +16,8 @@ Based on three templates which must be created in Sendgrid
 1. 'confirmation' - Template: Will be send initially to confirm the Email (needs Button with 'action_url')
 2. 'subscribed' - Template: Will be send if the user is successfully subscribed.
 3. 'unsubscribed' - Template: Will be send if the user unsubscribes (needs Button with 'action_url')
+4. Create one or more subscription lists.
+5. Create a unsubscribe group (supressions).
 <br>
 
 ## Installation:
