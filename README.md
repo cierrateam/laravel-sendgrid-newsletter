@@ -50,12 +50,16 @@ php artisan migrate
 Add your sendgrid api-key.<br>
 Add your template_ids from Sendgrid to template_id in config.
 
-## Usage: 
+
+## Default usage
+Add the sendgrid ``api-key``, ``template_ids`` and ``subject`` to the three templates, the ```newsletterListIds => ['fdsdsfdsf23423-432423-fdsf']``` and the ``supressionGroupIds => ['1234']`` to the config. Call `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)` in your app. Rest will be processed automatically.
+
+## Custom usage:
 To use the cierra/laravel-sendgrid-newsletter package, you can use the provided methods in your code:
 
 ### Options:
 
-As long as no options are set the default options will be taken from the config. ```template_id``` and ```subject```  are required. `dynamic_data` is optional. If the ``default_action_url`` is removed or false from config you need to provide an ``action_url`` e.g:<br> 
+As long as no options are set the default options will be taken from the config. ```template_id``` and ```subject```  are required. `dynamic_data` is optional. If the ``default_action_url`` is removed, false or overwritten in the config you need to provide an ``action_url`` e.g:<br> 
 ```
 $myOptions = [
     'dynamic_data' => [
