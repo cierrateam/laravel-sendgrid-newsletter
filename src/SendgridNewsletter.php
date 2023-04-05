@@ -119,7 +119,7 @@ class SendgridNewsletter
             return self::returnValues(401, 'updateSubscription failed.', $subscription, $validator->errors());
         } else {
             $subscription->update($data);
-            self::returnValues(200, 'Update userid', $subscription, null);
+            self::returnValues(200, 'updateSubscription success', $subscription, null);
         }
     }
     /*
