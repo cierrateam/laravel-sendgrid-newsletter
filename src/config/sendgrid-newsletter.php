@@ -6,7 +6,12 @@ return [
         'newsletterListIds' => [],
         'supressionGroupIds' => [],
         'contactDataKeyMapping' => [
-            'first_name' => 'firstName'
+            'first_name' => 'firstName',
+            'last_name' => 'lastName',
+            'adress_line_1' => 'adressLine',
+            'city' => 'city',
+            'postal_code' => 'postalCode',
+            'country' => 'country',
         ],
     ],
     'confirmation' => [
@@ -28,7 +33,7 @@ return [
     ],
     'excluded-emails' => env('NEWSLETTER_EXCLUDED_EMAILS', 'test@example.com'), // use comma seperated addresses: NEWSLETTER_EXCLUDED_EMAILS="test@cierra.de,test@example.de"
     'mail' => [
-        'from_adress' => env('MAIL_FROM_ADDRESS', 'test@example.com'),
-        'from_name' => env('MAIL_FROM_NAME', 'Cierrateam Sendgrid Newsletter'),
+        'from_adress' => env('NESLETTER_MAIL_FROM_ADDRESS', 'test@example.com'),
+        'from_name' => env('NESLETTER_MAIL_FROM_NAME', 'Cierrateam Sendgrid Newsletter'),
     ],
 ];
