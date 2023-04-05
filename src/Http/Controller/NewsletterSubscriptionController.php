@@ -8,12 +8,12 @@ class NewsletterSubscriptionController extends Controller
 
     public function confirmedSubscription(string $token)
     {
-        $response = SendgridNewsletter::subscribe($token);
+        $response = SendgridNewsletter::confirmSubscription($token);
         return response()->json($response);
     }
-    public function unsubscribe(string $token)
+    public function unsubscribe(string $unsubscribe_token)
     {
-        $response = SendgridNewsletter::unsubscribe($token);
+        $response = SendgridNewsletter::unsubscribe($unsubscribe_token);
         return response()->json($response);
     }
 }

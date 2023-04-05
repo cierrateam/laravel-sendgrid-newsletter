@@ -29,20 +29,23 @@ class SendgridNewsletter
             $subscription = NewsletterSubscription::create([
                 'email' => $email,
                 'token' => Str::random(60),
+                'unsubscribe_token' => Str::random(60),
                 'status' => SubscriptionStatus::Pending,
                 'user_id' => $user_id
             ]);
 
-            SendEmailWithTemplate::dispatch($subscription, $emailOptions);
+            SendEmailWithTemplate::dispatch($subscription->email, $subscription->token, $emailOptions);
             return self::returnValues(200, 'Confirmation email send.', $subscription, null, $emailOptions['redirect_url']);
         }
     }
 
-    public static function subscribe(string $token, array $emailOptions = null, $contactData = null)
+    public static function confirmSubscription(string $token, array $emailOptions = null)
     {
         $validator =  self::validateToken($token);
-
         $subscription = NewsletterSubscription::where('token', $token)->first();
+        if($subscription->status == SubscriptionStatus::Subscribed) {
+            return self::returnValues(401, 'User already subscribed', $subscription, $validator->errors());
+        }
         if($validator->fails()) {
             return self::returnValues(401, 'Subscription failed', $subscription, $validator->errors());
         } else {
@@ -50,29 +53,40 @@ class SendgridNewsletter
             $subscription->update([
                 'status' => SubscriptionStatus::Subscribed,
                 'unsubscribed_at' => null,
-                'subscribed_at' => Carbon::now()->format('Y-m-d'),
+                'subscribed_at' => Carbon::now()->format('Y-m-d h:m:s'),
             ]);
-            SendEmailWithTemplate::dispatch($subscription, $emailOptions);
+            SendEmailWithTemplate::dispatch($subscription->email, $subscription->token, $emailOptions);
+            $contactData = [
+                'email' => $subscription->email,
+                'unique_name' => $subscription->unsubscribe_token
+            ];
+            if($subscription->user) {
+                $contactDataKeyMapping = config('sendgrid-newsletter.sendgrid.contactDataKeyMapping');
+                foreach($contactDataKeyMapping as $sendgridKey => $modelKey) {
+                    $contactData[$sendgridKey] = $subscription->user->$modelKey;
+                }
+            }
+
             self::upsertContact($subscription->email, $contactData);
             return self::returnValues(200, 'Subscription added', $subscription);
         }
     }
 
-    public static function unsubscribe(string $token, array $emailOptions = null)
+    public static function unsubscribe(string $unsubscribe_token, array $emailOptions = null)
     {
-        $validator =  self::validateToken($token);
-        $subscription = NewsletterSubscription::where('token', $token)->first();
+        $subscription = NewsletterSubscription::where('unsubscribe_token', $unsubscribe_token)->first();
+        $validator =  self::validateToken($subscription->token);
         if($validator->fails()) {
             return self::returnValues(401, 'Unsubscribing failed', $subscription, $validator->errors());
         } else {
             $emailOptions = self::unsubscribeOptions($emailOptions);
             $subscription->update([
                 'status' => SubscriptionStatus::Unsubscribed,
-                'unsubscribed_at' => Carbon::now()->format('Y-m-d'),
+                'unsubscribed_at' => Carbon::now()->format('Y-m-d h:m:s'),
                 'subscribed_at' => null,
             ]);
     
-            SendEmailWithTemplate::dispatch($subscription, $emailOptions);
+            SendEmailWithTemplate::dispatch($subscription->email, $subscription->unsubscribe_token, $emailOptions);
             self::moveContactToSupressionGroups($subscription->email);
             return self::returnValues(200, 'Unsubscribed', $subscription, null, $emailOptions['redirect_url']);
         }
@@ -89,7 +103,7 @@ class SendgridNewsletter
         if($validator->fails()) {
             return self::returnValues(401, 'Couldnt get status', $subscription, $validator->errors());
         } else {
-            return $subscription ? self::returnValues(200, 'Get status', $subscription, null) : self::returnValues(400, SubscriptionStatus::Not_Subscribed_Yet, null, null);
+            return $subscription ? self::returnValues(200, 'Get status', $subscription, null) : self::returnValues(400, SubscriptionStatus::NotSubscribedYet, null, null);
         }
     }
 

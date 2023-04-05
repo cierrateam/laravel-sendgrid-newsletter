@@ -9,16 +9,15 @@ use Illuminate\Support\Facades\Log;
 trait SendgridMarketing
 {
 
-  public static function upsertContact($email, $aditionalContactData = null)
+  public static function upsertContact($email, $contactData)
   {
+    $excluded_emails = explode(',', config('sendgrid-newsletter.excluded-emails'));
+    if(in_array($email, $excluded_emails)) return;
     self::removeContactFromSupressionGroups($email);
     $sg = new (\SendGrid::class)(config('sendgrid-newsletter.sendgrid.api-key'));
-    $contactData = array_merge([
-      "email" => $email,
-    ], $aditionalContactData ?: []);
     $requestBody =
       [
-        "list_ids" => self::getNewsletterListIds(), //config('sendgrid-newsletter.sendgrid.newsletterListId'),
+        "list_ids" => self::getNewsletterListIds(),
         "contacts" => [
           $contactData
         ]
@@ -41,6 +40,8 @@ trait SendgridMarketing
 
   public static function moveContactToSupressionGroups($email)
   {
+    $excluded_emails = explode(',', config('sendgrid-newsletter.excluded-emails'));
+    if(in_array($email, $excluded_emails)) return;
     $contactId = self::getSendGridContactId($email);
     $sg = new (\SendGrid::class)(config('sendgrid-newsletter.sendgrid.api-key'));
     if ($contactId) {

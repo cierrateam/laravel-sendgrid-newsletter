@@ -69,7 +69,7 @@ SendgridNewsletter::sendSubscriptionLink('test@cierra.de', $myOptions);
 ```
 
 ### `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)`
-Start the newsletter subscription, creates NewsletterSubscription record, dispatches the job to send the email with the confirmation template.<br>
+Start the newsletter subscription, creates NewsletterSubscription record, dispatches the job to send the email with the confirmation template. Upserts the contact based on the <br>
 #### Default options:
 
 ```
@@ -95,7 +95,7 @@ Updates the NewsletterSubscription based on the token. Created in sendSubscripti
         ];
 ```
 
-### `SendgridNewsletter::unsubscribe(string $token, array $options = null)`
+### `SendgridNewsletter::unsubscribe(string $unsubscribe_token, array $options = null)`
 Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink.<br>
 
 #### Default ptions:
