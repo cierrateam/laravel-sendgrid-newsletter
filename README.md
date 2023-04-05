@@ -129,7 +129,7 @@ Updates the created Contact in Sendgrid by the token.<br>
 
 <code>/sendgrid-newsletter/{token}/resubscribe</code> - will be triggered by the 'action_url' from the 'unsubscribed' Sendgrid template if default_action_url is true.
 
-Changelog: 0.1:
+Changelog: v0.1:
 
 Initial release
 License: This package is licensed under the MIT License.
