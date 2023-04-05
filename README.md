@@ -56,8 +56,7 @@ Add the sendgrid ``api-key``, ``template_ids`` and ``subject`` to the three temp
 <br>
 
 #### Subscribe
-
-Call `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)` in your app.
+To subscribe use `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)` in your app. This will automatically start the verification and subscription process.
 <br>
 
 #### Unsubscribe
