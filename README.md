@@ -45,12 +45,6 @@ php artisan vendor:publish --provider="CierraTeam\\LaravelSendgridNewsletter\\La
 ```
 php artisan migrate
 ```
-
-### Config:<br>
-Add your sendgrid api-key.<br>
-Add your template_ids from Sendgrid to template_id in config.
-
-
 ## Default usage
 Add the sendgrid ``api-key``, ``template_ids`` and ``subject`` to the three templates, the ```newsletterListIds => ['fdsdsfdsf23423-432423-fdsf']``` and the ``supressionGroupIds => ['1234']`` to the config. 
 <br>
