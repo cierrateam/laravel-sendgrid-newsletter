@@ -52,7 +52,17 @@ Add your template_ids from Sendgrid to template_id in config.
 
 
 ## Default usage
-Add the sendgrid ``api-key``, ``template_ids`` and ``subject`` to the three templates, the ```newsletterListIds => ['fdsdsfdsf23423-432423-fdsf']``` and the ``supressionGroupIds => ['1234']`` to the config. Call `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)` in your app. Rest will be processed automatically.
+Add the sendgrid ``api-key``, ``template_ids`` and ``subject`` to the three templates, the ```newsletterListIds => ['fdsdsfdsf23423-432423-fdsf']``` and the ``supressionGroupIds => ['1234']`` to the config. 
+<br>
+
+#### Subscribe
+
+Call `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)` in your app.
+<br>
+
+#### Unsubscribe
+To unsubscribe call this route and provide the unsubscribe_token. This token will be stored also in Sendgrid in the reserved field ``unique_name``.
+<code>/sendgrid-newsletter/{unsubscribe_token}/unsubscribe</code>
 
 ## Custom usage:
 To use the cierra/laravel-sendgrid-newsletter package, you can use the provided methods in your code:
@@ -125,7 +135,7 @@ Updates the created Contact in Sendgrid by the token.<br>
 ### Routes:<br>
 <code>/sendgrid-newsletter/{token}/confirmation</code> - will be triggered by the 'action_url' from the 'confirm' template in Sendgrid if default_action_url is true.
 
-<code>/sendgrid-newsletter/{token}/unsubscribe</code> - can be called to unsubscribe.
+<code>/sendgrid-newsletter/{unsubscribe_token}/unsubscribe</code> - can be called to unsubscribe.
 
 <code>/sendgrid-newsletter/{token}/resubscribe</code> - will be triggered by the 'action_url' from the 'unsubscribed' Sendgrid template if default_action_url is true.
 
