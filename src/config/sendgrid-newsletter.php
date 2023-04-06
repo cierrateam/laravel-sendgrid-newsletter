@@ -3,8 +3,8 @@
 return [
     'sendgrid' => [
         'api-key' => env('SENDGRID_API_KEY'),
-        'newsletterListIds' => [],
-        'supressionGroupIds' => [],
+        'newsletterListIds' => env('NEWSLETTER_SUBSCRIPTION_LIST_IDS'),
+        'supressionGroupIds' => env('NEWSLETTER_SUPRESSION_GROUP_IDS'),
         'contactDataKeyMapping' => [
             'first_name' => 'firstName',
             'last_name' => 'lastName',

@@ -124,10 +124,10 @@ trait SendgridMarketing
   }
   public static function getNewsletterListIds()
   {
-    return config('sendgrid-newsletter.sendgrid.newsletterListIds');
+    return explode(',', config('sendgrid-newsletter.sendgrid.newsletterListIds'));
   }
   public static function getSupressionGroupIds()
   {
-    return config('sendgrid-newsletter.sendgrid.supressionGroupIds');
+    return explode(',', config('sendgrid-newsletter.sendgrid.supressionGroupIds'));
   }
 }

@@ -47,8 +47,16 @@ php artisan vendor:publish --provider="CierraTeam\\LaravelSendgridNewsletter\\La
 ```
 php artisan migrate
 ```
+
+### Config info:
+```newsletterListIds``` <br>
+``supressionGroupIds`` <br>
+``excluded-emails`` <br>
+If more than one added separate them by a comma in the .env like `` NEWSLETTER_SUBSCRIPTION_LIST_IDS="id-11111,id-2222" ``.
+
+
 ## Default usage
-Add the sendgrid ``api-key``, ``template_ids`` and ``subject`` to the three templates, the ```newsletterListIds => ['fdsdsfdsf23423-432423-fdsf']``` and the ``supressionGroupIds => ['1234']`` to the config. 
+Add the sendgrid ``api-key``, ``template_ids`` and ``subject`` to the three templates, the ```newsletterListIds``` and the ``supressionGroupIds`` to the config. 
 <br>
 
 #### Subscribe
