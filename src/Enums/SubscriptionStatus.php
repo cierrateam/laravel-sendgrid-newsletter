@@ -8,7 +8,7 @@ enum SubscriptionStatus: string
 {
     use EnumToArray;
 
-    case Not_Subscribed_Yet = 'Not_Subscribed_Yet';
+    case NotSubscribedYet = 'NotSubscribedYet';
     case Unsubscribed = 'Unsubscribed';
     case Pending = 'Pending';
     case Subscribed = 'Subscribed';

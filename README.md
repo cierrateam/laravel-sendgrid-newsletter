@@ -16,6 +16,8 @@ Based on three templates which must be created in Sendgrid
 1. 'confirmation' - Template: Will be send initially to confirm the Email (needs Button with 'action_url')
 2. 'subscribed' - Template: Will be send if the user is successfully subscribed.
 3. 'unsubscribed' - Template: Will be send if the user unsubscribes (needs Button with 'action_url')
+4. Create one or more subscription lists.
+5. Create a unsubscribe group (supressions).
 <br>
 
 ## Installation:
@@ -45,17 +47,24 @@ php artisan vendor:publish --provider="CierraTeam\\LaravelSendgridNewsletter\\La
 ```
 php artisan migrate
 ```
+## Default usage
+Add the sendgrid ``api-key``, ``template_ids`` and ``subject`` to the three templates, the ```newsletterListIds => ['fdsdsfdsf23423-432423-fdsf']``` and the ``supressionGroupIds => ['1234']`` to the config. 
+<br>
 
-### Config:<br>
-Add your sendgrid api-key.<br>
-Add your template_ids from Sendgrid to template_id in config.
+#### Subscribe
+To subscribe use `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)` in your app. This will automatically start the verification and subscription process.
+<br>
 
-## Usage: 
+#### Unsubscribe
+To unsubscribe call this route and provide the unsubscribe_token. This token will be stored also in Sendgrid in the reserved field ``unique_name``.
+<code>/sendgrid-newsletter/{unsubscribe_token}/unsubscribe</code>
+
+## Custom usage:
 To use the cierra/laravel-sendgrid-newsletter package, you can use the provided methods in your code:
 
 ### Options:
 
-As long as no options are set the default options will be taken from the config. ```template_id``` and ```subject```  are required. `dynamic_data` is optional. If the ``default_action_url`` is removed or false from config you need to provide an ``action_url`` e.g:<br> 
+As long as no options are set the default options will be taken from the config. ```template_id``` and ```subject```  are required. `dynamic_data` is optional. If the ``default_action_url`` is removed, false or overwritten in the config you need to provide an ``action_url`` e.g:<br> 
 ```
 $myOptions = [
     'dynamic_data' => [
@@ -68,8 +77,8 @@ SendgridNewsletter::sendSubscriptionLink('test@cierra.de', $myOptions);
 
 ```
 
-### `SendgridNewsletter::sendSubscriptionLink(string $email, array $options = null)`
-Start the newsletter subscription, creates NewsletterSubscription record, dispatches the job to send the email with the confirmation template.<br>
+### `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)`
+Start the newsletter subscription, creates NewsletterSubscription record, dispatches the job to send the email with the confirmation template. Upserts the contact based on the <br>
 #### Default options:
 
 ```
@@ -95,7 +104,7 @@ Updates the NewsletterSubscription based on the token. Created in sendSubscripti
         ];
 ```
 
-### `SendgridNewsletter::unsubscribe(string $token, array $options = null)`
+### `SendgridNewsletter::unsubscribe(string $unsubscribe_token, array $options = null)`
 Updates the NewsletterSubscription based on the token. Created in sendSubscriptionLink.<br>
 
 #### Default ptions:
@@ -114,14 +123,18 @@ Receives the status from the NewsLetterSubscription.<br>
 
 ### `SendgridNewsletter::updateSubscription(string $token, array $data)`
 Updates the Subscription identified by the token.<br>
+### `SendgridNewsletter::updateSendgridContact(string $token, array $contactData)`
+Updates the created Contact in Sendgrid by the token.<br>
 
 
 ### Routes:<br>
-<code>/sendgrid-newsletter/{token}/confirmation</code> - will be triggered by the 'action_url' from the 'confirm' template in Sendgrid if default_action_url is true
+<code>/sendgrid-newsletter/{token}/confirmation</code> - will be triggered by the 'action_url' from the 'confirm' template in Sendgrid if default_action_url is true.
 
-<code>/sendgrid-newsletter/{token}/unsubscribed</code> - will be triggered by the 'action_url' from the 'unsubscribed' Sendgrid template if default_action_url is true
+<code>/sendgrid-newsletter/{unsubscribe_token}/unsubscribe</code> - can be called to unsubscribe.
 
-Changelog: 1.0.0:
+<code>/sendgrid-newsletter/{token}/resubscribe</code> - will be triggered by the 'action_url' from the 'unsubscribed' Sendgrid template if default_action_url is true.
+
+Changelog: v0.1:
 
 Initial release
 License: This package is licensed under the MIT License.

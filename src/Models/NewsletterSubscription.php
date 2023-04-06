@@ -16,12 +16,10 @@ class NewsletterSubscription extends Model
 
   protected $casts = [
     'status' => SubscriptionStatus::class,
-    'subscribed_at' => 'date',
-    'unsubscribed_at' => 'date',
   ];
 
   public function user(): BelongsTo
   {
-    return $this->belongsTo(User::class, 'id', 'user_id');
+    return $this->belongsTo(User::class, 'user_id', 'id');
   }
 }

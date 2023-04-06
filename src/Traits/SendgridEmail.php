@@ -6,11 +6,10 @@ use Illuminate\Support\Facades\Log;
 
 trait SendgridEmail
 {
-
   public static function sendSendGridEmail(string $targetEmail, string $templateId, string $subject = "", array $dynamicData = [])
   {
-    
-    if(in_array($targetEmail, config('sendgrid-newsletter.excluded-emails'))) return;
+    $excluded_emails = explode(',', config('sendgrid-newsletter.excluded-emails'));
+    if(in_array($targetEmail, $excluded_emails)) return;
     $mail = new \SendGrid\Mail\Mail();
     $personalization = new \SendGrid\Mail\Personalization();
     $personalization->addTo(new \SendGrid\Mail\To($targetEmail, ''));
@@ -33,5 +32,4 @@ trait SendgridEmail
       Log::info('Caught exception: ' . $e->getMessage());
     }
   }
-
 }

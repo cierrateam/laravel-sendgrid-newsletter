@@ -16,13 +16,14 @@ return new class extends Migration
             $table->id();
             $table->string('email');
             $table->string('token')->unique();
+            $table->string('unsubscribe_token')->unique();
             $table->foreignId('user_id')
                 ->nullable() // here
                 ->references('id')
                 ->on('users');
-            $table->string('status')->default('Not_Subscribed_Yet');
-            $table->date('subscribed_at')->nullable();
-            $table->date('unsubscribed_at')->nullable();
+            $table->string('status')->default('NotSubscribedYet');
+            $table->timestamp('subscribed_at')->nullable();
+            $table->timestamp('unsubscribed_at')->nullable();
             $table->timestamps();
         });
     }
