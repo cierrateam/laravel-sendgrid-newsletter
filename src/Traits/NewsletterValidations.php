@@ -9,8 +9,8 @@ trait NewsletterValidations
     protected static function validateConfirmEmail ($email, $user_id = null)
     {
         $rules = [
-            'email' => 'required|unique:newsletter_subscriptions',
-            'user_id' => 'nullable|unique:newsletter_subscriptions',
+            'email' => 'required',
+            'user_id' => 'nullable',
         ];
 
         $messages = [

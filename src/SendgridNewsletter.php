@@ -18,23 +18,33 @@ class SendgridNewsletter
 {
     use NewsletterValidations, SendGridEmail, ReturnValues, DefaultOptions, SendgridMarketing;
 
-    public static function sendSubscriptionLink(string $email, $user_id = null, array $emailOptions = null)
+    public static function sendSubscriptionLink(string $email, array $emailOptions = null, $user_id = null)
     {
         $validator =  self::validateConfirmEmail($email);
         if($validator->fails()) {
             return self::returnValues(401, 'Confirmation email failes', null, $validator->errors());
         }
         if($validator->passes()) {
-            $emailOptions = self::confirmEmailOptions($emailOptions);
-            $subscription = NewsletterSubscription::create([
-                'email' => $email,
-                'token' => Str::random(60),
-                'unsubscribe_token' => Str::random(60),
-                'status' => SubscriptionStatus::Pending,
-                'user_id' => $user_id
-            ]);
+            $subscription = NewsletterSubscription::where('email', $email)->first();
+            if(!$subscription) {
+                $subscription = NewsletterSubscription::create([
+                    'email' => $email,
+                    'token' => Str::random(60),
+                    'unsubscribe_token' => Str::random(60),
+                    'status' => SubscriptionStatus::Pending,
+                    'user_id' => $user_id,
+                    'dynamic_template_data' => $emailOptions['dynamic_data'] ?: null,
+                ]);
+            }
 
-            SendEmailWithTemplate::dispatch($subscription->email, $subscription->token, $emailOptions);
+            $emailOptions = self::confirmEmailOptions($emailOptions);
+
+            if(!empty($subscription->dynamic_template_data)) {
+                $emailOptions['dynamic_data'] = array_merge($subscription->dynamic_template_data, $emailOptions['dynamic_data']);
+            }
+
+            SendEmailWithTemplate::dispatch($subscription, $emailOptions);
+
             return self::returnValues(200, 'Confirmation email send.', $subscription, null, $emailOptions['redirect_url']);
         }
     }
@@ -55,7 +65,10 @@ class SendgridNewsletter
                 'unsubscribed_at' => null,
                 'subscribed_at' => Carbon::now()->format('Y-m-d h:m:s'),
             ]);
-            SendEmailWithTemplate::dispatch($subscription->email, $subscription->token, $emailOptions);
+            if(!empty($subscription->dynamic_template_data)) {
+                $emailOptions['dynamic_data'] = array_merge($subscription->dynamic_template_data, $emailOptions['dynamic_data']);
+            }
+            SendEmailWithTemplate::dispatch($subscription, $emailOptions);
             $contactData = [
                 'email' => $subscription->email,
                 'unique_name' => $subscription->unsubscribe_token
@@ -68,7 +81,7 @@ class SendgridNewsletter
             }
 
             self::upsertContact($subscription->email, $contactData);
-            return self::returnValues(200, 'Subscription added', $subscription);
+            return self::returnValues(200, 'Subscription added', $subscription, null, $emailOptions['redirect_url']);
         }
     }
 
@@ -85,8 +98,10 @@ class SendgridNewsletter
                 'unsubscribed_at' => Carbon::now()->format('Y-m-d h:m:s'),
                 'subscribed_at' => null,
             ]);
-    
-            SendEmailWithTemplate::dispatch($subscription->email, $subscription->unsubscribe_token, $emailOptions);
+            if(!empty($subscription->dynamic_template_data)) {
+                $emailOptions['dynamic_data'] = array_merge($subscription->dynamic_template_data, $emailOptions['dynamic_data']);
+            }
+            SendEmailWithTemplate::dispatch($subscription, $emailOptions);
             self::moveContactToSupressionGroups($subscription->email);
             return self::returnValues(200, 'Unsubscribed', $subscription, null, $emailOptions['redirect_url']);
         }

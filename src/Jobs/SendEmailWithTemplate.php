@@ -14,20 +14,18 @@ class SendEmailWithTemplate implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, SendGridEmail;
 
-    private $email;
-    private $token;
     private $options;
+    private $subscription;
     
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($email, $token, array $options)
+    public function __construct($subscription, array $options)
     {
-        $this->email = $email;
+        $this->subscription = $subscription;
         $this->options = $options;
-        $this->token = $token;
     }
 
     /**
@@ -38,13 +36,17 @@ class SendEmailWithTemplate implements ShouldQueue
     public function handle()
     {
         $dynamicData = $this->options['dynamic_data'];
-        $dynamicData['action_url'] = '/';
-        if(array_key_exists('default_action_url', $this->options) && $this->options['default_action_url']) {
-            $dynamicData['action_url'] = str_replace('{token}', $this->token, $this->options['default_action_url']);
+        if(array_key_exists('default_action_url', $dynamicData) || $dynamicData['default_action_url']) {
+            $dynamicData['action_url'] = str_replace('{token}', $this->subscription->token, $dynamicData['default_action_url']);
+        }
+        if(array_key_exists('default_unsubscribe_action_url', $dynamicData) || $dynamicData['default_unsubscribe_action_url']) {
+            $dynamicData['unsubscribe_action_url'] = str_replace('{token}', $this->subscription->unsubscribe_token, $dynamicData['default_action_url']);
         }
 
+        \Log::info(print_r($this->options, true));
+
         self::sendSendGridEmail(
-            $this->email,
+            $this->subscription->email,
             $this->options['template_id'],
             $this->options['subject'],
             $dynamicData

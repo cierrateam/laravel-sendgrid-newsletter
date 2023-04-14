@@ -48,7 +48,7 @@ php artisan vendor:publish --provider="CierraTeam\\LaravelSendgridNewsletter\\La
 php artisan migrate
 ```
 
-### Config info:
+### Config:
 ```newsletterListIds``` <br>
 ``supressionGroupIds`` <br>
 ``excluded-emails`` <br>
@@ -60,7 +60,16 @@ Add the sendgrid ``api-key``, ``template_ids`` and ``subject`` to the three temp
 <br>
 
 #### Subscribe
-To subscribe use `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)` in your app. This will automatically start the verification and subscription process.
+To subscribe use `SendgridNewsletter::sendSubscriptionLink(string $email, $user_id = null, array $options = null)` in your app. This will automatically start the verification and subscription process. To set dynamic template data like `` {{ first_name }} `` the `` $options `` should contain an array with: <br>
+
+```
+dynamic_data => [
+    'first_name' => $user->first_name,
+    'last_name' => $user->last_name,
+    'salutation' => $user->salutation,
+] 
+
+```
 <br>
 
 #### Unsubscribe
@@ -72,13 +81,15 @@ To use the cierra/laravel-sendgrid-newsletter package, you can use the provided 
 
 ### Options:
 
-As long as no options are set the default options will be taken from the config. ```template_id``` and ```subject```  are required. `dynamic_data` is optional. If the ``default_action_url`` is removed, false or overwritten in the config you need to provide an ``action_url`` e.g:<br> 
+As long as no options are set the default options will be taken from the config. ```template_id``` and ```subject```  are required. `dynamic_data` is optional. If the ``default_action_url``, ``default_unsubscribe_action_url`` false or overwritten in the config you need to provide an ``action_url``, ``unsubscribe_action_url`` e.g:<br> 
 ```
 $myOptions = [
     'dynamic_data' => [
         'action_url' => '/route/to/custom',
+        'unsubscribe_action_url' => '/route/to/custom',
+        'default_action_url' => false
+        'default_unsubscribe_action_url' => false
     ]
-    'default_action_url' => false
 ];
 
 SendgridNewsletter::sendSubscriptionLink('test@cierra.de', $myOptions);

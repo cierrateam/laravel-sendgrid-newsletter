@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('status')->default('NotSubscribedYet');
             $table->timestamp('subscribed_at')->nullable();
             $table->timestamp('unsubscribed_at')->nullable();
+            $table->json('dynamic_template_data')->nullable();
             $table->timestamps();
         });
     }
