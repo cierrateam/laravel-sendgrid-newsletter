@@ -17,19 +17,17 @@ return [
     'confirmation' => [
         'subject' => 'Email confirmation',
         'template_id' => env('SENDGRID_TEMPLATE_EMAIL_CONFIRM'),
-        'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/confirmation',
-        'redirect_url' => '/',
+        'redirect_url' => env('APP_URL'),
     ],
     'subscribed' => [
         'subject' => 'Subscribed',
         'template_id' => env('SENDGRID_TEMPLATE_NEWSLETTER_SUBSCRIBED'),
-        'redirect_url' => '/',
+        'redirect_url' => env('APP_URL'),
     ],
     'unsubscribed' => [
         'subject' => 'Unsubscribed',
         'template_id' => env('SENDGRID_TEMPLATE_NEWSLETTER_UNSUBSCRIBED'),
-        'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/resubscribe',
-        'redirect_url' => '/'
+        'redirect_url' => env('APP_URL')
     ],
     'excluded-emails' => env('NEWSLETTER_EXCLUDED_EMAILS', 'test@example.com'), // use comma seperated addresses: NEWSLETTER_EXCLUDED_EMAILS="test@cierra.de,test@example.de"
     'mail' => [

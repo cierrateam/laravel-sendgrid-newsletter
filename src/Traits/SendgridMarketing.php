@@ -55,6 +55,9 @@ trait SendgridMarketing
     try {
       foreach($group_ids as $group_id) {
         $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->post($requestBody);
+        Log::info($response->statusCode());
+        Log::info($response->headers());
+        Log::info($response->body());
       }
     } catch (\Exception $e) {
       Log::info(500, 'Caught exception: ' .  $e->getMessage());

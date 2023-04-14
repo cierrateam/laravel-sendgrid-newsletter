@@ -28,8 +28,10 @@ trait SendgridEmail
       Log::info($response->statusCode());
       Log::info($response->headers());
       Log::info($response->body());
+      return $response->body();
     } catch (\Exception $e) {
       Log::info('Caught exception: ' . $e->getMessage());
+      return $e->getMessage();
     }
   }
 }

@@ -16,6 +16,7 @@ class NewsletterSubscription extends Model
 
   protected $casts = [
     'status' => SubscriptionStatus::class,
+    'dynamic_template_data' => 'array',
   ];
 
   public function user(): BelongsTo
