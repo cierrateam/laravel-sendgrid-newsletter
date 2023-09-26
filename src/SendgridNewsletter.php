@@ -71,8 +71,14 @@ class SendgridNewsletter
             SendEmailWithTemplate::dispatch($subscription, $emailOptions);
             $contactData = [
                 'email' => $subscription->email,
-                'unique_name' => $subscription->unsubscribe_token
+                'unique_name' => $subscription->unsubscribe_token,
             ];
+
+            // merge dynamic_template_data with contactData
+            if(!empty($subscription->dynamic_template_data)) {
+                $contactData = array_merge($contactData, $subscription->dynamic_template_data);
+            }
+
             if($subscription->user) {
                 $contactDataKeyMapping = config('sendgrid-newsletter.sendgrid.contactDataKeyMapping');
                 foreach($contactDataKeyMapping as $sendgridKey => $modelKey) {
