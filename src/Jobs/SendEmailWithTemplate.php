@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Cierrateam\LaravelSendgridNewsletter\Models\NewsletterSubscription;
+use Cierrateam\LaravelSendgridNewsletter\SendgridNewsletterLogger;
 use Cierrateam\LaravelSendgridNewsletter\Traits\SendGridEmail;
 
 class SendEmailWithTemplate implements ShouldQueue
@@ -43,7 +44,7 @@ class SendEmailWithTemplate implements ShouldQueue
             $dynamicData['unsubscribe_action_url'] = str_replace('{token}', $this->subscription->unsubscribe_token, $dynamicData['default_action_url']);
         }
 
-        \Log::info(print_r($this->options, true));
+        SendgridNewsletterLogger::log(print_r($this->options, true));
 
         self::sendSendGridEmail(
             $this->subscription->email,

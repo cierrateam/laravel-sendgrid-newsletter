@@ -1,7 +1,8 @@
 <?php
 
 namespace Cierrateam\LaravelSendgridNewsletter\Traits;
-use Illuminate\Support\Facades\Log;
+
+use Cierrateam\LaravelSendgridNewsletter\SendgridNewsletterLogger;
 
 
 trait SendgridEmail
@@ -26,9 +27,9 @@ trait SendgridEmail
 
 
     $response = $sg->send($mail);
-    Log::info($response->statusCode());
-    Log::info($response->headers());
-    Log::info($response->body());
+    SendgridNewsletterLogger::log($response->statusCode());
+    SendgridNewsletterLogger::log($response->headers());
+    SendgridNewsletterLogger::log($response->body());
     return $response->body();
   }
 }
