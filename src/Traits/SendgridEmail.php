@@ -23,15 +23,12 @@ trait SendgridEmail
     $mail->setFrom(config('sendgrid-newsletter.mail.from_adress'), config('sendgrid-newsletter.mail.from_name'));
     $mail->setSubject($subject);
     $sg = new (\SendGrid::class)(config('sendgrid-newsletter.sendgrid.api-key'));
-    try {
-      $response = $sg->send($mail);
-      Log::info($response->statusCode());
-      Log::info($response->headers());
-      Log::info($response->body());
-      return $response->body();
-    } catch (\Exception $e) {
-      Log::info('Caught exception: ' . $e->getMessage());
-      return $e->getMessage();
-    }
+
+
+    $response = $sg->send($mail);
+    Log::info($response->statusCode());
+    Log::info($response->headers());
+    Log::info($response->body());
+    return $response->body();
   }
 }

@@ -24,18 +24,14 @@ trait SendgridMarketing
       ];
     $requestBody = json_decode(json_encode($requestBody));
 
-    try {
-      $response = $sg->client->marketing()->contacts()->put($requestBody);
-      if ($response->statusCode() >= 200 && $response->statusCode() <= 400) {
-        Log::info('status', [
-          'status' => $response->statusCode(),
-        ]);
-        return true;
-      }
-      return false;
-    } catch (\Exception $e) {
-      Log::info(500, 'Caught exception: ' .  $e->getMessage());
+    $response = $sg->client->marketing()->contacts()->put($requestBody);
+    if ($response->statusCode() >= 200 && $response->statusCode() <= 400) {
+      Log::info('status', [
+        'status' => $response->statusCode(),
+      ]);
+      return true;
     }
+    return false;
   }
 
   public static function moveContactToSupressionGroups($email)
@@ -52,15 +48,11 @@ trait SendgridMarketing
 
     $requestBody = json_decode(json_encode($requestBody));
 
-    try {
-      foreach($group_ids as $group_id) {
-        $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->post($requestBody);
-        Log::info($response->statusCode());
-        Log::info($response->headers());
-        Log::info($response->body());
-      }
-    } catch (\Exception $e) {
-      Log::info(500, 'Caught exception: ' .  $e->getMessage());
+    foreach($group_ids as $group_id) {
+      $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->post($requestBody);
+      Log::info($response->statusCode());
+      Log::info($response->headers());
+      Log::info($response->body());
     }
   }
 
@@ -69,13 +61,9 @@ trait SendgridMarketing
     $sg = new (\SendGrid::class)(config('sendgrid-newsletter.sendgrid.api-key'));
     $group_ids = self::getSupressionGroupIds();
 
-    try {
-      foreach($group_ids as $group_id) {
-        $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->_($email)->delete();
-        Log::info("message:" . $response->statusCode());
-      }
-    } catch (\Exception $e) {
-      Log::info(500, 'Caught exception: ' .  $e->getMessage());
+    foreach($group_ids as $group_id) {
+      $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->_($email)->delete();
+      Log::info("message:" . $response->statusCode());
     }
   }
 
@@ -92,16 +80,12 @@ trait SendgridMarketing
 
     $requestBody = json_decode(json_encode($requestBody));
 
-    try {
-      $response = $sg->client->marketing()->contacts()->search()->emails()->post($requestBody);
-      if ($response->statusCode() >= 200 && $response->statusCode() <= 400) {
-        $body = json_decode($response->body());
-        $contactId = $body?->result?->$email?->contact?->id;
-      }
-      return $contactId;
-    } catch (\Exception $e) {
-      Log::info(500, 'Caught exception: ' .  $e->getMessage());
+    $response = $sg->client->marketing()->contacts()->search()->emails()->post($requestBody);
+    if ($response->statusCode() >= 200 && $response->statusCode() <= 400) {
+      $body = json_decode($response->body());
+      $contactId = $body?->result?->$email?->contact?->id;
     }
+    return $contactId;
   }
 
   public static function removeContactFromSendGridList($contactId)
@@ -117,12 +101,8 @@ trait SendgridMarketing
 
     $listIds = self::getNewsletterListIds();
 
-    try {
-      foreach ($listIds as $listId) {
-        $sg->client->marketing()->lists()->_($listId)->contacts()->delete(null, $queryParams);
-      }
-    } catch (\Exception $e) {
-      Log::info(500, 'Caught exception: ' .  $e->getMessage());
+    foreach ($listIds as $listId) {
+      $sg->client->marketing()->lists()->_($listId)->contacts()->delete(null, $queryParams);
     }
   }
   public static function getNewsletterListIds()
