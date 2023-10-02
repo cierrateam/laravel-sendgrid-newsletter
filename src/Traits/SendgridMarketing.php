@@ -3,7 +3,7 @@
 namespace Cierrateam\LaravelSendgridNewsletter\Traits;
 
 use Cierrateam\LaravelSendgridNewsletter\Models\NewsletterSubscription;
-use Illuminate\Support\Facades\Log;
+use Cierrateam\LaravelSendgridNewsletter\SendgridNewsletterLogger;
 
 
 trait SendgridMarketing
@@ -26,7 +26,7 @@ trait SendgridMarketing
 
     $response = $sg->client->marketing()->contacts()->put($requestBody);
     if ($response->statusCode() >= 200 && $response->statusCode() <= 400) {
-      Log::info('status', [
+      SendgridNewsletterLogger::log('status', [
         'status' => $response->statusCode(),
       ]);
       return true;
@@ -50,9 +50,9 @@ trait SendgridMarketing
 
     foreach($group_ids as $group_id) {
       $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->post($requestBody);
-      Log::info($response->statusCode());
-      Log::info($response->headers());
-      Log::info($response->body());
+      SendgridNewsletterLogger::log($response->statusCode());
+      SendgridNewsletterLogger::log($response->headers());
+      SendgridNewsletterLogger::log($response->body());
     }
   }
 
@@ -63,7 +63,7 @@ trait SendgridMarketing
 
     foreach($group_ids as $group_id) {
       $response = $sg->client->asm()->groups()->_($group_id)->suppressions()->_($email)->delete();
-      Log::info("message:" . $response->statusCode());
+      SendgridNewsletterLogger::log("message:" . $response->statusCode());
     }
   }
 
