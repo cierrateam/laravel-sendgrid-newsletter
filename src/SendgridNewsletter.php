@@ -18,7 +18,7 @@ class SendgridNewsletter
 {
     use NewsletterValidations, SendGridEmail, ReturnValues, DefaultOptions, SendgridMarketing;
 
-    public static function sendSubscriptionLink(string $email, array $emailOptions = null, $user_id = null)
+    public static function sendSubscriptionLink(string $email, array $emailOptions = [], $user_id = null)
     {
         $validator =  self::validateConfirmEmail($email);
         if($validator->fails()) {
@@ -33,7 +33,7 @@ class SendgridNewsletter
                     'unsubscribe_token' => Str::random(60),
                     'status' => SubscriptionStatus::Pending,
                     'user_id' => $user_id,
-                    'dynamic_template_data' => $emailOptions['dynamic_data'] ?: null,
+                    'dynamic_template_data' => $emailOptions['dynamic_data'] ?? null,
                 ]);
             }
 
