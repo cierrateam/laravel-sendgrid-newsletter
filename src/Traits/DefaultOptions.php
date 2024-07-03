@@ -10,8 +10,8 @@ trait DefaultOptions
         $confirmation_config = config('sendgrid-newsletter.confirmation');
         $dynamicData = [
             'dynamic_data' => [
-                'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/confirmation',
-                'default_unsubscribe_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/unsubscribe/',
+                'default_action_url' => url('/sendgrid-newsletter/{token}/confirmation'),
+                'default_unsubscribe_action_url' => url('/sendgrid-newsletter/{token}/unsubscribe/'),
             ]
         ];
         return array_merge($confirmation_config, $options, $dynamicData);
@@ -23,8 +23,8 @@ trait DefaultOptions
         $subscribed_config = config('sendgrid-newsletter.subscribed');
         $dynamicData = [
             'dynamic_data' => [
-                'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/unsubscribe/',
-                'default_unsubscribe_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/unsubscribe/',
+                'default_action_url' => url('/sendgrid-newsletter/{token}/unsubscribe/'),
+                'default_unsubscribe_action_url' => url('/sendgrid-newsletter/{token}/unsubscribe/'),
             ]
         ];
         return array_merge($subscribed_config, $dynamicData, $options);
@@ -36,8 +36,8 @@ trait DefaultOptions
         $unsubscribed_config = config('sendgrid-newsletter.unsubscribed');
         $dynamicData = [
             'dynamic_data' => [
-                'default_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/resubscribe',
-                'default_unsubscribe_action_url' => env('APP_URL') . '/sendgrid-newsletter/{token}/unsubscribe/',
+                'default_action_url' => url('/sendgrid-newsletter/{token}/resubscribe'),
+                'default_unsubscribe_action_url' => url('/sendgrid-newsletter/{token}/unsubscribe/'),
             ]
         ];
         return array_merge($unsubscribed_config, $dynamicData, $options);
